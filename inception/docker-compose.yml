@@ -1,0 +1,57 @@
+# version: '3.5'
+
+# services:
+#   nginx:
+#     image: nginx
+#     container_name: nginx
+#     build: ./nginx
+#     ports:
+#       - "443:443"
+#   Mariadb:
+#     image: mariadb
+#     container_name: mariadb
+#     build: ./mariadb
+#     environment:
+#       env_file: .env
+
+version: '3.3'
+
+services:
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    build: ./wordpress
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+    depends_on:
+      - mariadb
+    volumes:
+      - wp-content:/wordpress
+
+
+  mariadb:
+    image: mariadb
+    container_name: Mariadb
+    build: ./mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: websitedb
+      MYSQL_USER: bloto
+      MYSQL_PASSWORD: secret2001@
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - 443:443
+    depends_on:
+      - wordpress
+    restart: unless-stopped
+    volumes:
+      - wp-content:/var/www/html
+
+volumes:
+  wp-content:
