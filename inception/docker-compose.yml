@@ -28,7 +28,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - wp-content:/wordpress
+      - wp-content:/var/www/html
 
 
   mariadb:
@@ -51,7 +51,7 @@ services:
       - wordpress
     restart: unless-stopped
     volumes:
-      - wp-content:/var/www/html
+      - wp-content:/var/www/html/
 
 volumes:
   wp-content:
