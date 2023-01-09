@@ -29,6 +29,8 @@ services:
       - mariadb
     volumes:
       - wp-content:/var/www/html
+    networks:
+      - yassir
 
 
   mariadb:
@@ -40,6 +42,8 @@ services:
       MYSQL_DATABASE: websitedb
       MYSQL_USER: bloto
       MYSQL_PASSWORD: secret2001@
+    networks:
+      - yassir
 
   nginx:
     image: nginx
@@ -52,6 +56,12 @@ services:
     restart: unless-stopped
     volumes:
       - wp-content:/var/www/html/
+    networks:
+      - yassir
 
 volumes:
   wp-content:
+
+networks:
+  yassir:
+    driver : bridge
