@@ -1,19 +1,3 @@
-# version: '3.5'
-
-# services:
-#   nginx:
-#     image: nginx
-#     container_name: nginx
-#     build: ./nginx
-#     ports:
-#       - "443:443"
-#   Mariadb:
-#     image: mariadb
-#     container_name: mariadb
-#     build: ./mariadb
-#     environment:
-#       env_file: .env
-
 version: '3.3'
 
 services:
@@ -25,6 +9,8 @@ services:
       WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: password
+    ports:
+      - 9000:9000
     depends_on:
       - mariadb
     volumes:
@@ -37,13 +23,18 @@ services:
     image: mariadb
     container_name: Mariadb
     build: ./mariadb
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: websitedb
       MYSQL_USER: bloto
       MYSQL_PASSWORD: secret2001@
+    ports:
+      - 3306:3306
     networks:
       - yassir
+    volumes:
+      - db-content:/var/lib/mysql
 
   nginx:
     image: nginx
@@ -58,9 +49,32 @@ services:
       - wp-content:/var/www/html/
     networks:
       - yassir
-
+  
+  adminer:
+    image: adminer:bloto
+    container_name: adminer
+    build: ./adminer
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:8080
+    networks:
+      - yassir
+      
 volumes:
+  db-content:
+    driver_opts:
+      # type: 'none'
+      o: bind
+      device: /Users/yel-aziz/Desktop/data/mariadb
   wp-content:
+    driver_opts:
+      # type: 'none'
+      o: bind
+      device: /Users/yel-aziz/Desktop/data/wordpress
+
+
+
 
 networks:
   yassir:
