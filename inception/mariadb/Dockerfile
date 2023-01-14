@@ -9,4 +9,6 @@ RUN sed -i '28s/bind-address/# bind-address/'  /etc/mysql/mariadb.conf.d/50-serv
 RUN sed -i '19s/#port/port/'  /etc/mysql/mariadb.conf.d/50-server.cnf
 RUN service mysql start && mysql -u root < /var/www/seter.sql
 
-CMD ["mysqld_safe"]
+
+
+CMD [ "mysqld_safe" ]

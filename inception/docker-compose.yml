@@ -33,8 +33,6 @@ services:
       - 3306:3306
     networks:
       - yassir
-    volumes:
-      - db-content:/var/lib/mysql
 
   nginx:
     image: nginx
@@ -61,20 +59,41 @@ services:
     networks:
       - yassir
       
+  staticpage:
+    image: staticpage
+    container_name: staticpage
+    build: ./staticpage
+    ports:
+      - 100:100
+    networks:
+      - yassir
+  ftp:
+    image: ftp
+    container_name: ftp
+    build: ./ftp
+    restart: always
+    ports:
+      - "21:21"
+      - "20:20"
+    volumes:
+      -  wp-content:/home/test/ftp
+    networks:
+      - yassir
+
 volumes:
-  db-content:
-    driver_opts:
-      # type: 'none'
-      o: bind
-      device: /Users/yel-aziz/Desktop/data/mariadb
   wp-content:
     driver_opts:
-      # type: 'none'
       o: bind
-      device: /Users/yel-aziz/Desktop/data/wordpress
+      type: none
+      device: /Users/yel-aziz/desktop/database/wordpress
+  
 
 
-
+  # db-volume:
+  #   driver_opts:
+  #     o: bind
+  #     type: none
+  #     device: /Users/yel-aziz/desktop/database
 
 networks:
   yassir:

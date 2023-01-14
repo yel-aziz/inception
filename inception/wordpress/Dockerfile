@@ -14,7 +14,7 @@ RUN apt-get install -y php7.3-fpm  php-mysql
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 # RUN rm  /var/www/html/wp-config.php
 RUN  service php7.3-fpm start
-RUN chown -Rf www-data:www-data /var/www/html
+RUN  chown -Rf www-data:www-data /var/www/html
 
 
 COPY ./script/script.sh .
