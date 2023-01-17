@@ -14,7 +14,6 @@ RUN wget https://github.com/nginx/nginx/raw/master/conf/mime.types
 RUN cp mime.types /etc/nginx/
 
 
-
 EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

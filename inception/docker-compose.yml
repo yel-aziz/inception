@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 
 services:
   wordpress:
@@ -17,7 +17,6 @@ services:
       - wp-content:/var/www/html
     networks:
       - yassir
-
 
   mariadb:
     image: mariadb
@@ -67,25 +66,22 @@ services:
       - 100:100
     networks:
       - yassir
-  ftp:
-    image: ftp
-    container_name: ftp
-    build: ./ftp
-    restart: always
+
+  Redis:
+    image: redis
+    container_name: redis
+    build: ./redis
     ports:
-      - "21:21"
-      - "20:20"
-    volumes:
-      -  wp-content:/home/test/ftp
+     - 6379:6379
     networks:
-      - yassir
+    - yassir
 
 volumes:
   wp-content:
     driver_opts:
       o: bind
       type: none
-      device: /Users/yel-aziz/desktop/database/wordpress
+      device: /Users/yel-aziz/Desktop/database/wordpress_data
   
 
 
