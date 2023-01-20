@@ -87,18 +87,18 @@ services:
 
 volumes:
   wp-content:
-    # driver_opts:
-    #   o: bind
-    #   type: none
-    #   device: /Users/yel-aziz/Desktop/database/wordpress_data
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/yassir/data/reserve_wordpress
   
 
 
-  # db-volume:
-  #   driver_opts:
-  #     o: bind
-  #     type: none
-  #     device: /Users/yel-aziz/desktop/database
+  db-volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/yassir/data/reserve_database
 
 networks:
   yassir:
