@@ -20,6 +20,8 @@ services:
     image: mariadb
     container_name: Mariadb
     build: ./requirements/mariadb
+    volumes:
+      - db-volume:/var/lib/mysql
     restart: unless-stopped
     env_file:
       - .env
@@ -73,6 +75,8 @@ services:
     build: ./requirements/bonus/staticpage
     ports:
       - 100:100
+    env_file:
+      - .env
     networks:
       - yassir
 
